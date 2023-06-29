@@ -90,8 +90,6 @@ resource "aws_vpc_security_group_ingress_rule" "blog_https_in" {
 
  resource "aws_vpc_security_group_egress_rule" "blog_everything_out" {
   # type        = "egress"
-   from_port   = 0
-   to_port     = 0
    ip_protocol    = -1 
    cidr_ipv4 = "0.0.0.0/0"
 
