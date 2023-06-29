@@ -39,7 +39,7 @@ resource "aws_instance" "blog" {
     ingress_rules       = ["http-80-tcp", "https-443"]
     ingress_cidr_blocks = ["0.0.0.0/0"]
 
-     egress_rules       = ["all-all"]
+     egress_rules       = 0 
      egress_cidr_blocks = ["0.0.0.0/0"]
    }
 
