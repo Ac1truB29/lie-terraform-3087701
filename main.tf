@@ -29,19 +29,19 @@ resource "aws_instance" "blog" {
   }
 }
 
- module "blog_sg" {
-   source  = "terraform-aws-modules/security-group/aws"
-   version = "5.1.0"
-   name    = "blog_new"
+# module "blog_sg" {
+ #  source  = "terraform-aws-modules/security-group/aws"
+  # version = "5.1.0"
+  # name    = "blog_new"
 
-   vpc_id = data.aws_vpc.default.id
+   # vpc_id = data.aws_vpc.default.id
   
-   ingress_rules       = ["http-80-tcp", "https-443"]
-   ingress_cidr_blocks = ["0.0.0.0/0"]
+  # ingress_rules       = ["http-80-tcp", "https-443"]
+   # ingress_cidr_blocks = ["0.0.0.0/0"]
 
-   egress_rules       = ["all-all"]
-   egress_cidr_blocks = ["0.0.0.0/0"]
- }
+   # egress_rules       = ["all-all"]
+   # egress_cidr_blocks = ["0.0.0.0/0"]
+ # }
 
 resource "aws_security_group" "blog" {
   name        = "blog"
@@ -50,7 +50,7 @@ resource "aws_security_group" "blog" {
   vpc_id = data.aws_vpc.default.id 
 }
 
-resource "aws_security_group_rule" "blog_http_in" {
+resource "aws_vpc_security_group_ingress_rule" "blog_http_in" {
   type        = "ingress"
   from_port   = 80
   to_port     = 80
@@ -60,7 +60,7 @@ resource "aws_security_group_rule" "blog_http_in" {
   security_group_id = aws_security_group.blog.id
 }
 
-resource "aws_security_group_rule" "blog_https_in" {
+resource "aws_vpc_security_group_ingress_rule" "blog_https_in" {
   type        = "ingress"
   from_port   = 443
   to_port     = 443
@@ -70,7 +70,7 @@ resource "aws_security_group_rule" "blog_https_in" {
   security_group_id = aws_security_group.blog.id
 }
 
-# resource "aws_security_group_rule" "blog_everything_out" {
+# resource "aws_vpc_security_group_egress_rule" "blog_everything_out" {
   # type        = "egress"
   # from_port   = 0
   # to_port     = 0
